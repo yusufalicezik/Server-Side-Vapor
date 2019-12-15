@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<link rel = "stylesheet" href="/css/app.css">
+<title>Deneme xd </title>
+</head>
+<body>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">Film Adı</th>
+      <th scope="col">Açıklama</th>
+      <th scope="col">Yıl</th>
+    </tr>
+  </thead>
+  <tbody>
+#for(movie in movies){
+<tr>
+  <td>#(movie.title)</td>
+  <td>#(movie.description)</td>
+  <td>#(movie.year)</td>
+</tr>
+}
+</tbody>
+</table>
+</body>
+</html>
+
