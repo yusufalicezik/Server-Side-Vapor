@@ -36,6 +36,7 @@ final class Detail:Content{
 }
 
 extension Movie:SQLiteModel{
+   // static let entity:String = "movies"
 }
 extension Movie:Migration{
 }

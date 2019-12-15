@@ -12,9 +12,11 @@ struct MovieController:RouteCollection{
     func boot(router: Router) throws {
         router.get("api/movies", use: index)
         router.post(Movie.self, at:"api/movie", use: create)
-        router.delete("api/movie", Movie.parameter, use: delete)
+        router.delete("/api/movie", Movie.parameter, use: delete)
         router.get("/main", use: show)
-        router.get("movies", use: getAll)
+        router.get("/movies", use: getAll)
+        router.get("/api/movies/filterByYear", Int.parameter ,use: filterByYear)
+        router.get("/api/movies/searchMovie", String.parameter, use:filterByName)
     }
     
     func index(req:Request)->Future<[Movie]>{
@@ -39,6 +41,19 @@ struct MovieController:RouteCollection{
             let context = MovieContext(movies: movies)
             return try req.view().render("index", context)
         })
+    }
+    
+    func filterByYear(req:Request) throws -> Future<[Movie]>{
+        let year = try req.parameters.next(Int.self)
+        return Movie.query(on: req).filter(\.year >= year).all()
+    }
+    
+    func filterByName(req:Request) throws -> Future<[Movie]>{
+        let text = try req.parameters.next(String.self)
+        if text.count < 5{
+            throw Abort(.badRequest, reason:"Missing search term")
+        }
+        return Movie.query(on: req).filter(\.title == text).all()
     }
 }
 
